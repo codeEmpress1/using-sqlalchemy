@@ -2,7 +2,7 @@ import unittest
 from .inmemorystorage import InMemoryStorage
 
 
-class InMemoryTest(unittest.TestCase):
+class TestInMemory(unittest.TestCase):
 
     def setUp(self):
         return super().setup()
@@ -17,7 +17,7 @@ class InMemoryTest(unittest.TestCase):
         InMemoryStorage().fetch(title='Java'), {id: 1, 'author': 'Ade', 'title': 'Java'}
 
     def test_delete(self):
-        InMemoryStorage().delete(id = 1)
+        InMemoryStorage().delete(id=1)
         self.assertNotIn(self.books, {id: 1, 'author': 'Ade', 'title': 'Java'})
 
     def test_all(self):
