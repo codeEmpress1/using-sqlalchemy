@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+
 engine = create_engine('postgresql+psycopg2://postgres:curly@localhost/postgres')
 base = declarative_base()
 Session = sessionmaker(engine)
@@ -16,9 +17,9 @@ class Books(base):
     author = Column(String)
     title = Column(String)
 
-class PostgresTableStrorage():
+class PostgresTableStrorage(Storage):
 
-    record = []
+    
     all_books = session.query(Books)
 
     def create(self, **params):
@@ -32,13 +33,17 @@ class PostgresTableStrorage():
 
 
     def fetch(self, **params):
-
+        record = []
         # return all from database that matches the arguments provided
         for book in self.all_books:
             for value in params.values():
                 if value == book.book_id or value == book.title or value == book.author:
-                    self.record.append({'book_id': book.book_id, 'author': book.author, 'title': book.title})
-        return self.record
+                    if book not in record:
+
+                        record.append({'book_id': book.book_id, 'author': book.author, 'title': book.title})     
+        # print(record)       
+        return record
+
 
 
     def delete(self,**params):
@@ -57,24 +62,3 @@ class PostgresTableStrorage():
         return allBooks
 
 
-
-# ///////////////////////////////////////////////////
-book_manager = PostgresTableStrorage()
-# book_m = book_manager.create(book_id = 101, author = 'Hal', title = 'Python')
-# print(book_m)
-
-# book_i = book_manager.fetch(book_id = 105, author = 'Ola')
-# print(book_i)
-
-book_d = book_manager.delete(book_id = 101, author = 'Tolu')
-# print(book_d)
-# book_manager.create(book_id=103,author = 'Tolu', title='Java')
-# book_manager.create(book_id=104,author = 'Ola', title='Java')
-# bookie = book_manager.create(book_id=105,author = 'Bola', title='JavaScript')
-# print(bookie)
-
-
-# # myBooks = book_manager.fetch(book_id = 104, author = 'Bola')
-# print(myBooks)
-
-print(book_manager.return_all())

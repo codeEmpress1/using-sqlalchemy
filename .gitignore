@@ -1,0 +1,7 @@
+.autogit
+venv
+.idea
+.vscode
+__pycache__
+__init__
+

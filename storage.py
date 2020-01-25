@@ -3,17 +3,17 @@ from abc import ABC, abstractmethod
 
 class Storage(ABC):
     @abstractmethod
-    def create(param):
+    def create(self, **params):
         pass
 
     @abstractmethod
-    def fetch(param):
+    def fetch(self, **params):
         pass
 
     @abstractmethod
-    def delete(param):
+    def delete(self, **params):
         pass
 
     @abstractmethod
-    def return_all():
+    def return_all(self, **params):
         pass
